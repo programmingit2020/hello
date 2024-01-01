@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ludo Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(11, 50px);
+            grid-template-rows: repeat(11, 50px);
+            gap: 2px;
+        }
+
+        .cell {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .red { background-color: #ff0000; }
+        .green { background-color: #00ff00; }
+        .yellow { background-color: #ffff00; }
+        .blue { background-color: #0000ff; }
+    </style>
+</head>
+<body>
+
+<div id="board"></div>
+
+<script>
+    const board = document.getElementById('board');
+
+    // Function to create cells
+    function createCell(row, col) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.dataset.row = row;
+        cell.dataset.col = col;
+        return cell;
+    }
+
+    // Function to create players
+    function createPlayer(color) {
+        const player = document.createElement('div');
+        player.className = `player ${color}`;
+        return player;
+    }
+
+    // Function to initialize the board
+    function initializeBoard() {
+        for (let row = 0; row < 11; row++) {
+            for (let col = 0; col < 11; col++) {
+                const cell = createCell(row, col);
+                board.appendChild(cell);
+
+                // Add players to their initial positions
+                if ((row === 0 || row === 10) && (col === 0 || col === 10)) {
+                    const player = createPlayer(row === 0 ? 'red' : 'blue');
+                    cell.appendChild(player);
+                } else if ((row === 0 || row === 10) && col === 5) {
+                    const player = createPlayer(row === 0 ? 'green' : 'yellow');
+                    cell.appendChild(player);
+                }
+            }
+        }
+    }
+
+    initializeBoard();
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>
